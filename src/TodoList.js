@@ -19,9 +19,29 @@ class TodoList extends Component {
     });
   };
 
+  update = (id, updatedTask) => {
+    const updatedTodos = this.state.todos.map(todo => {
+      // find the task we are updating
+      if (todo.id === id) {
+        // return a new object with updated the task value
+        return { ...todo, task: updatedTask };
+      }
+      return todo;
+    });
+    this.setState({ todos: updatedTodos });
+  };
+
   render() {
     const todos = this.state.todos.map(todo => {
-      return <Todo key={todo.id} id={todo.id} task={todo.task} removeTodo={this.remove} />;
+      return (
+        <Todo
+          key={todo.id}
+          id={todo.id}
+          task={todo.task}
+          removeTodo={this.remove}
+          updateTodo={this.update}
+        />
+      );
     });
     return (
       <div>
