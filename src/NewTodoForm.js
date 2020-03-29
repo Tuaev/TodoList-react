@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { v4 as uuid } from 'uuid';
 
 class NewTodoForm extends Component {
   state = { task: '' };
@@ -7,9 +8,10 @@ class NewTodoForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  // Submitting new task to parent state
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createTodo(this.state);
+    this.props.createTodo({ ...this.state, id: uuid() });
     this.setState({ task: '' });
   };
 

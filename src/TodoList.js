@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import NewTodoForm from './NewTodoForm';
 import Todo from './Todo';
-class TodoList extends Component {
-  state = { todos: [{ task: 'Buy Milk' }, { task: 'Buy Eggs' }] };
 
+class TodoList extends Component {
+  state = {
+    todos: []
+  };
+
+  // newTodo is an object with a task coming from NewTodoForm
   create = newTodo => {
+    console.log(newTodo);
     this.setState({ todos: [...this.state.todos, newTodo] });
+  };
+
+  remove = id => {
+    this.setState({
+      todos: this.state.todos.filter(todo => todo.id !== id)
+    });
   };
 
   render() {
     const todos = this.state.todos.map(todo => {
-      return <Todo task={todo.task} />;
+      return <Todo key={todo.id} id={todo.id} task={todo.task} removeTodo={this.remove} />;
     });
     return (
       <div>
